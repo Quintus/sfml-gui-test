@@ -1,9 +1,9 @@
 SFML CEGUI Test
 ===============
 
-This is a simple program to test how SFML works together with
-CEGUI. Its code serves as a usage example; the only source file
-src/main.cpp contains the minimal code required to make things run.
+This is a set of simple programs to test how SFML works together with
+CEGUI. Their code serves as a usage example; each program contains
+only the minimal code required to make things run.
 
 Requirements
 ------------
@@ -27,7 +27,7 @@ How to build
     $ ./ceguitest
 
 Note there is no install step needed. What do you want to do with that
-program in /usr anyway? The program looks for its data in the
+programs in /usr anyway? The programs looks for their data in the
 directory "../data", so be sure to have the working directory set up
 accordingly.
 
@@ -77,7 +77,7 @@ modules disabled (ArchLinux ships Python 3 by default, which breaks
 CEGUI’s compilation process as it expects "python" to be Python 2).
 CEGUI will be installed into /opt/cegui-0.8.5-dev, which is the
 path you have to hand to an extra cmake option -DCMAKE_PREFIX_PATH.
-That is, run cmake as follows when compiling this program:
+That is, run cmake as follows when compiling these programs:
 
     cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/opt/cegui-0.8.5-dev ..
 
