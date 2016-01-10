@@ -12,16 +12,10 @@ Requirements
 - CEGUI 0.8
 
 There is a problem with recent versions of the glm library (a
-dependency of CEGUI). If this program displays upside-down and
-minified to you, then your glm is too new and you have to use CEGUI
-0.8.5 or higher (where the problem was fixed). See further below
-for information on the exact cirumstances and how to compile
-CEGUI from Mercurial.
-
-Known to work:
-
-- CEGUI 0.8.4 with glm 0.9.5.4
-- CEGUI 0.8.5 with glm 0.9.7.1 (CEGUI 0.8.5 fixed the bug)
+dependency of CEGUI). If you have glm >= 0.9.6 then you have to use
+CEGUI 0.8.5 or higher (where the problem was fixed). See further below
+for information on the exact cirumstances and how to compile CEGUI
+from Mercurial.
 
 How to build
 ------------
@@ -41,15 +35,17 @@ How to compile CEGUI from Mercurial (and why)
 ---------------------------------------------
 
 CEGUI < 0.8.5 has a fatal bug on Linux if used with the OpenGL
-renderer and a recent version of glm that causes it to render
-everything upside down and minified:
+renderer and a recent version of glm (>= 0.9.6) that causes it to
+render everything upside down and minified:
 
   https://bitbucket.org/cegui/cegui/issues/1063/openglrenderer-on-linux-renders-cegui
+  https://bitbucket.org/cegui/cegui/commits/dd3b82d
 
-The problem occurs on ArchLinux (glm 0.9.7.1). If you have an older
-version of glm on your system, and get this program to work with a
-version of CEGUI older than 0.8.5 **please report that to me**
-(<quintus@quintilianus.eu>).
+The problem occurs on ArchLinux (currently glm 0.9.7.1) and probably
+on other distros that ship glm >= 0.9.6. If you have an older version
+of glm on your system, then everything should work fine even with
+CEGUI < 0.8.5.  Starting from 0.8.5, CEGUI will work with any version
+of glm currently available.
 
 To circumvent the bug, you must use a version of CEGUI that has this
 bug fixed. The next stable version of CEGUI, 0.8.5, will have that
