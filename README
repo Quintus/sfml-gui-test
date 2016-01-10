@@ -1,0 +1,101 @@
+SFML CEGUI Test
+===============
+
+This is a simple program to test how SFML works together with
+CEGUI. Its code serves as a usage example; the only source file
+src/main.cpp contains the minimal code required to make things run.
+
+Requirements
+------------
+
+- SFML 2.3 or higher
+- CEGUI 0.8.5 or higher (currently you need to compile CEGUI from the Mercurial repository for that, see below)
+
+How to build
+------------
+
+    $ mkdir build
+    $ cd build
+    $ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=/where/you/installed/cegui-0.8.5 ..
+    $ make
+    $ ./ceguitest
+
+Note there is no install step needed. What do you want to do with that
+program in /usr anyway? The program looks for its data in the
+directory "../data", so be sure to have the working directory set up
+accordingly.
+
+How to compile CEGUI from Mercurial (and why)
+---------------------------------------------
+
+CEGUI < 0.8.5 has a fatal bug on Linux if used with the OpenGL
+renderer and a recent version of glm that causes it to render
+everything upside down and minified:
+
+  https://bitbucket.org/cegui/cegui/issues/1063/openglrenderer-on-linux-renders-cegui
+
+The problem occurs on ArchLinux (glm 0.9.7.1). If you have an older
+version of glm on your system, and get this program to work with a
+version of CEGUI older than 0.8.5 **please report that to me**
+(<quintus@quintilianus.eu>).
+
+To circumvent the bug, you must use a version of CEGUI that has this
+bug fixed. The next stable version of CEGUI, 0.8.5, will have that
+bugfix included, but as of January 2016 0.8.5 is the development
+version of CEGUI and has not yet been released. Therefore you have to
+compile it from the Mercurial repository.
+
+First ensure you have CEGUI dependencies installed; especially take
+care to install glm, glfw (glfw2 and glfw3 should both work fine; I
+used glfw3), all with development headers. Then clone the repository
+and switch to the v0-8 branch:
+
+    $ hg clone hg clone https://bitbucket.org/cegui/cegui
+    $ cd cegui
+    $ hg update v0-8
+
+Compile CEGUI like this:
+
+    $ mkdir build
+    $ cd build
+    $ cmake -DCMAKE_INSTALL_PREFIX=/opt/cegui-0.8.5-dev \
+      -DCEGUI_BUILD_PYTHON_MODULES=OFF \
+      -DCEGUI_BUILD_RENDERER_OPENGL=ON ..
+    $ make
+    # make install
+
+This will compile CEGUI with the OpenGL renderer enabled and python
+modules disabled (ArchLinux ships Python 3 by default, which breaks
+CEGUI’s compilation process as it expects "python" to be Python 2).
+CEGUI will be installed into /opt/cegui-0.8.5-dev, which is the
+path you have to hand to -DCMAKE_PREFIX_PATH as described further
+above already.
+
+License
+-------
+
+Copyright (c) 2016 Marvin Gülker
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
