@@ -18,11 +18,14 @@ include_directories(
   ${OPENGL_INCLUDE_DIR}
   ${LibXmlPP_INCLUDE_DIRS})
 
-file(GLOB_RECURSE sourcefiles
-  "src/*.cpp"
-  "src/*.hpp")
-add_executable(ceguitest ${sourcefiles})
-target_link_libraries(ceguitest
+add_executable(ceguitest-manual src/manual_window_creation.cpp)
+add_executable(ceguitest-xml src/xml_window_creation.cpp)
+target_link_libraries(ceguitest-manual
+  ${CEGUI_LIBRARIES}
+  ${SFML_LIBRARIES}
+  ${OPENGL_LIBRARIES}
+  ${LibXmlPP_LIBRARIES})
+target_link_libraries(ceguitest-xml
   ${CEGUI_LIBRARIES}
   ${SFML_LIBRARIES}
   ${OPENGL_LIBRARIES}
