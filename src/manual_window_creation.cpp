@@ -5,6 +5,17 @@
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
 
+bool on_close(const CEGUI::EventArgs& event)
+{
+  const CEGUI::WindowEventArgs& windowevent = static_cast<const CEGUI::WindowEventArgs&>(event);
+
+  std::cout << "Close clicked!" << std::endl;
+  CEGUI::WindowManager::getSingleton().destroyWindow(windowevent.window);
+  CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(NULL);
+
+  return true;
+}
+
 int main()
 {
   // Create SFML window
@@ -50,6 +61,9 @@ int main()
   p_frame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.25f, 0.0f), CEGUI::UDim(0.25f, 0.0f)));
   p_frame->setSize(CEGUI::USize(CEGUI::UDim(0.5f, 0.0f), CEGUI::UDim(0.5f, 0.0f)));
   p_frame->setText("Hello CEGUI World!");
+
+  // Attach an event handler to the close button
+  p_frame->getCloseButton()->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&on_close));
 
   // Main loop
   bool terminate = false;
