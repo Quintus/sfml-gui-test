@@ -90,6 +90,7 @@ int main()
   }
 
   // Finish
+  cegui_renderer.destroySystem();
   window.close();
   return 0;
 }
